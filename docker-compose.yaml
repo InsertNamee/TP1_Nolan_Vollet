@@ -1,38 +1,31 @@
-version: '1'
+version: '3.8'
+
 services:
   webserver:
-    container_name: apache_webserver
+    image: php:7.4-apache
+    container_name: php_webserver
     ports:
-      - "8080:80"       # Redirige le port 80 du conteneur vers le port 8080 de l'hôte
+      - "8080:80" # Expose le serveur web sur le port 8080
+    volumes:
+      - ./web:/var/www/html/ # Monte le répertoire local `web` dans le conteneur
     networks:
       - mynetwork
-    build: 
-      context: ./webserver
-      dockerfile: Dockerfile
-    volumes:
-      - ./webserver/php:/var/www/html/
 
   mysql:
+    image: mysql:latest
     container_name: mysql_database
-    ports:
-      - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: admin      # Mot de passe pour l'utilisateur root
-      MYSQL_DATABASE: example_db      # Nom de la db
-      MYSQL_USER: user                # Utilisateur de la db
-      MYSQL_PASSWORD: 123             # Mot de passe de l'utilisateur
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: my_password
+    volumes:
+      - ./mysql_data:/var/lib/mysql # Volume pour persister les données MySQL
     networks:
       - mynetwork
-    build: 
-      context: ./sql
-      dockerfile: Dockerfile
-    volumes:
-      - ./mysql_data:/var/lib/mysql   # Volume pour persister les données
+    ports:
+      - "3306:3306" # Expose le port MySQL sur l'hôte
 
 networks:
   mynetwork:
-    driver: bridge    # Utilise un réseau bridge pour connecter les deux conteneurs
-
-volumes:
-  mysql_data:
-    driver: local     # Volume local pour stocker les données MySQL
+    driver: bridge
