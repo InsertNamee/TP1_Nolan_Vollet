@@ -12,8 +12,8 @@
     // Informations de connexion à la base de données
     $host = 'mysql'; // Nom du service Docker pour MySQL (défini dans docker-compose.yml)
     $db   = 'my_database'; // Nom de la base de données
-    $user = 'root'; // Nom d'utilisateur MySQL
-    $pass = 'my_password'; // Mot de passe MySQL
+    $user = 'my_user'; // Nom d'utilisateur MySQL
+    $pass = ''; // Mot de passe MySQL
     $charset = 'utf8mb4';
 
     // Créer une connexion PDO
