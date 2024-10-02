@@ -5,9 +5,9 @@ services:
     image: php:7.4-apache
     container_name: php_webserver
     ports:
-      - "8080:80" # Expose le serveur web sur le port 8080
+      - "8080:80" # Open the port 8080
     volumes:
-      - ./web:/var/www/html/ # Monte le répertoire local `web` dans le conteneur
+      - ./web:/var/www/html/
     networks:
       - mynetwork
 
@@ -15,11 +15,11 @@ services:
     image: mysql:latest
     container_name: mysql_database
     volumes:
-      - ./mysql_data:/var/lib/mysql # Volume pour persister les données MySQL
+      - ./mysql_data:/var/lib/mysql
     networks:
       - mynetwork
     ports:
-      - "3306:3306" # Expose le port MySQL sur l'hôte
+      - "3306:3306" # Open the port 3306
 
 networks:
   mynetwork:
